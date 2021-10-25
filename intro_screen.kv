@@ -1,0 +1,105 @@
+#:import Window kivy.core.window.Window
+#:import dp kivy.metrics.dp
+#:import toast kivymd.toast.toast
+
+
+<Introduction>
+    md_bg_color : 1, 1, 1, 1
+
+    Image:
+        id : ot_icon
+        source : "ot_icon.png"
+        size_hint : None, None
+        size : dp(100), dp(100)
+        pos_hint : {"center_x":0.5}
+        top : Window.height - dp(100)
+        allow_stretch : True
+        keep_ratio : False
+
+    MDBoxLayout:
+        id : welcome_label_container
+        size_hint : None, None
+        size : dp(300), dp(50)
+        pos_hint : {"center_x":0.5}
+        top : ot_icon.y -dp(10)
+        orientation : "vertical"
+        MDLabel:
+            text : "Welcome to [b][color=#112073]OUSTATION TRIP[/color][/b]"
+            markup : True
+            font_style : "H6"
+            halign : "center"
+            pos_hint : {"center_y":0.5}
+        MDLabel:
+            text : "MAKE YOUR TRIP MORE COMFORTABLE"
+            bold : True
+            color : 17/255, 32/255, 115/255, 1
+            halign : "center"
+            pos_hint : {"center_y":0.5}
+            font_style : "Overline"
+
+    Image:
+        source : "taxi_cars.png"
+        opacity : 0.5
+        size_hint : None, None
+        reference : (welcome_label_container.y - down_quotes_container.top)/4
+        size : dp(self.reference*2), dp(self.reference)
+        top : welcome_label_container.y - (welcome_label_container.y - down_quotes_container.top)/2 + self.height/2
+        pos_hint : {"center_x":0.5}
+
+    NextScreenButton:
+        size_hint : None, None
+        size : dp(35), dp(35)
+        y : down_quotes_container.top + dp(5)
+        right : Window.width - self.width/2
+        on_release:
+            root.change_screen()
+        canvas:
+            Color:
+                rgba : 17/255, 171/255, 12, 1
+            Ellipse:
+                size : self.size
+                pos : self.pos
+        MDIcon:
+            icon : "chevron-right"
+            halign : "center"
+            pos_hint : {"center_x":0.5, "center_y":0.5}
+            theme_text_color : "Custom"
+            text_color : 1, 1, 1, 1
+
+    MDBoxLayout:
+        id : down_quotes_container
+        size_hint : None, None
+        size : dp(300), dp(80)
+        orientation : "horizontal"
+        pos_hint : {"center_x":0.5}
+        y : dp(20)
+        QuotesLayout:
+            icon_name : "taxi-driver.png"
+            quote_name : "Professional\nCab Drivers"
+        QuotesLayout:
+            icon_name : "car.png"
+            quote_name : "Secure & Safe\nRide"
+        QuotesLayout:
+            icon_name : "money.png"
+            quote_name : "Best Price\nGuarantee"
+
+
+
+<QuotesLayout@MDFloatLayout>:
+    size_hint : None, None
+    size : dp(100), dp(80)
+    icon_name : ""
+    quote_name : ""
+    Image:
+        source : root.icon_name
+        size_hint : None, None
+        size : dp(30), dp(30)
+        pos_hint : {"center_x":0.5, "center_y":0.75}
+        allow_stretch : True
+        keep_ratio : False
+    MDLabel:
+        text : root.quote_name
+        halign : "center"
+        pos_hint : {"center_x":0.5, "center_y":0.25}
+        font_style : "Overline"
+        color : 0, 0, 0, 1
